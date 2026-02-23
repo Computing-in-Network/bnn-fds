@@ -1,7 +1,7 @@
 # ISSUE-0007 FDS 批量执行器 MVP（基于 manifest）
 
 ## 状态
-- Open
+- Done
 
 ## 背景
 当前已经具备工况清单与 `fds_manifest_mvp.csv`，需要一个批量执行器把 manifest 转成可执行任务，并输出汇总报告。
@@ -30,7 +30,7 @@
 - 输入 `.fds` 文件缺失时任务会失败。
 
 ## 任务拆分
-- [ ] 实现 manifest 执行器脚本。
-- [ ] 增加使用说明。
-- [ ] 运行一次 dry-run 并输出报告。
-- [ ] 更新 issue 状态并提交。
+- [x] 实现 manifest 执行器脚本。
+- [x] 增加使用说明。
+- [x] 运行一次 dry-run 并输出报告。
+- [x] 更新 issue 状态并提交。
