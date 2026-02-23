@@ -1,0 +1,14 @@
+{
+  "run_report_summary": {
+    "total": 5,
+    "success": 0,
+    "failed": 0,
+    "skipped": 5
+  },
+  "dry_run": true,
+  "summary_rows": 5,
+  "status_counts": {
+    "success": 1,
+    "missing_log": 4
+  }
+}
