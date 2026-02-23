@@ -1,0 +1,21 @@
+{
+  "run_name": "mvp_run",
+  "seed": 42,
+  "input": {
+    "cases_csv": "data/meta/cases_mvp.csv",
+    "manifest_csv": "data/meta/fds_manifest_mvp.csv"
+  },
+  "output": {
+    "artifact_dir": "train/artifacts/mvp_run"
+  },
+  "train": {
+    "epochs": 3,
+    "batch_size": 16,
+    "learning_rate": 0.001
+  },
+  "model": {
+    "name": "mlp_placeholder",
+    "num_layers": 3,
+    "hidden_dim": 64
+  }
+}
