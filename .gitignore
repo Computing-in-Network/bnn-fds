@@ -1,0 +1,12 @@
+# FDS/Smokeview runtime artifacts (generated during local simulation runs)
+*.out
+*.smv
+*.s3d
+*.s3d.sz
+*.s3dd
+*_git.txt
+*_hrr.csv
+*_steps.csv
+
+# Runtime output directory
+data/fds_outputs/
