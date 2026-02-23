@@ -1,0 +1,32 @@
+{
+  "input": {
+    "y_true": "eval/samples/y_true.csv",
+    "y_pred": "eval/samples/y_pred.csv",
+    "latency": "eval/samples/latency_ms.txt"
+  },
+  "metrics": {
+    "mae": 1.613,
+    "nmae": 0.034999999637777786,
+    "accuracy": 96.50000003622222,
+    "p95_latency_ms": 830.0
+  },
+  "summary": {
+    "num_samples": 5,
+    "num_targets": 2,
+    "num_latency_samples": 10
+  },
+  "per_column": {
+    "temp": {
+      "mae": 3.2,
+      "nmae": 0.026666666664444446,
+      "min_true": 120.0,
+      "max_true": 240.0
+    },
+    "smoke": {
+      "mae": 0.026000000000000006,
+      "nmae": 0.04333333261111112,
+      "min_true": 0.2,
+      "max_true": 0.8
+    }
+  }
+}
