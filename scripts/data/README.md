@@ -5,11 +5,13 @@
 
 ## 脚本
 - `scripts/data/generate_cases.py`
+- `scripts/data/build_fds_manifest.py`
 
 ## 示例命令
 ```bash
 python3 scripts/data/generate_cases.py --n-cases 100
 python3 scripts/data/generate_cases.py --n-cases 1000 --output data/meta/cases_mvp_1000.csv
+python3 scripts/data/build_fds_manifest.py --cases data/meta/cases_mvp.csv --output data/meta/fds_manifest_mvp.csv
 ```
 
 ## 输出字段
@@ -25,3 +27,9 @@ python3 scripts/data/generate_cases.py --n-cases 1000 --output data/meta/cases_m
 - 可配置项：
   - 随机种子 `seed`
   - 各字段取值范围 `ranges`
+
+## Manifest 输出字段
+- `case_id`
+- `fds_input_path`
+- `output_dir`
+- `run_cmd`
