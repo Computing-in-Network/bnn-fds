@@ -5,6 +5,7 @@
 - `scripts/distill/train_distill_mlp_mvp.py`
 - `scripts/distill/infer_distill_mlp_mvp.py`
 - `scripts/distill/benchmark_infer_mvp.py`
+- `scripts/distill/train_distill_real_mvp.py`
 
 ## 作用
 执行 Teacher-Student 蒸馏 MVP：
@@ -52,4 +53,16 @@ python3 scripts/distill/benchmark_infer_mvp.py \
   --model distill/artifacts/mvp_distill_mlp/student_mlp_model.pt \
   --num-repeats 50 \
   --output distill/artifacts/mvp_distill_mlp/infer_benchmark.json
+```
+
+## 真实 FDS 标签蒸馏示例
+```bash
+python3 scripts/fds/extract_real_labels_mvp.py \
+  --outputs-dir data/fds_outputs \
+  --output data/meta/fds_labels_real_mvp.csv
+
+python3 scripts/distill/train_distill_real_mvp.py \
+  --cases data/meta/cases_mvp.csv \
+  --labels data/meta/fds_labels_real_mvp.csv \
+  --output-dir distill/artifacts/real_mvp
 ```

@@ -4,6 +4,7 @@
 - `scripts/fds/run_manifest_mvp.py`
 - `scripts/fds/generate_fds_inputs_mvp.py`
 - `scripts/fds/summarize_runs_mvp.py`
+- `scripts/fds/extract_real_labels_mvp.py`
 
 ## 作用
 读取 `fds_manifest`，顺序执行任务（或 dry-run），并输出运行报告 JSON。
@@ -49,4 +50,11 @@ python3 scripts/fds/run_manifest_mvp.py \
 python3 scripts/fds/summarize_runs_mvp.py \
   --outputs-dir data/fds_outputs \
   --output data/meta/fds_run_summary_mvp.csv
+```
+
+## 真实标签提取
+```bash
+python3 scripts/fds/extract_real_labels_mvp.py \
+  --outputs-dir data/fds_outputs \
+  --output data/meta/fds_labels_real_mvp.csv
 ```
