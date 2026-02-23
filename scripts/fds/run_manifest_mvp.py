@@ -2,6 +2,8 @@
 import argparse
 import csv
 import json
+import os
+import shutil
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
@@ -35,6 +37,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="仅打印并记录计划，不实际执行 run_cmd",
     )
+    p.add_argument(
+        "--timeout-s",
+        type=int,
+        default=0,
+        help="单任务超时秒数，0 表示不设超时",
+    )
     return p.parse_args()
 
 
@@ -53,9 +61,34 @@ def load_manifest(path: Path) -> list[dict]:
     return rows
 
 
-def run_one(row: dict, dry_run: bool) -> dict:
+def resolve_fds_cmd(cmd: str) -> str:
+    stripped = cmd.lstrip()
+    if not stripped.startswith("fds "):
+        return cmd
+    if shutil.which("fds"):
+        return cmd
+    fallback = os.path.expanduser("~/FDS/FDS6/bin/fds")
+    if os.path.exists(fallback):
+        return stripped.replace("fds ", f"{fallback} ", 1)
+    return cmd
+
+
+def with_fds_env(cmd: str) -> str:
+    fds_vars = os.path.expanduser("~/FDS/FDS6/bin/FDS6VARS.sh")
+    smv_vars = os.path.expanduser("~/FDS/FDS6/bin/SMV6VARS.sh")
+    prefix_parts = []
+    if os.path.exists(fds_vars):
+        prefix_parts.append(f"source {fds_vars}")
+    if os.path.exists(smv_vars):
+        prefix_parts.append(f"source {smv_vars}")
+    if not prefix_parts:
+        return cmd
+    return " && ".join(prefix_parts) + " && " + cmd
+
+
+def run_one(row: dict, dry_run: bool, timeout_s: int) -> dict:
     case_id = row["case_id"]
-    cmd = row["run_cmd"]
+    cmd = with_fds_env(resolve_fds_cmd(row["run_cmd"]))
     output_dir = Path(row["output_dir"])
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -69,20 +102,42 @@ def run_one(row: dict, dry_run: bool) -> dict:
         }
 
     start = datetime.now(timezone.utc)
-    proc = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-    end = datetime.now(timezone.utc)
-    status = "success" if proc.returncode == 0 else "failed"
-    return {
-        "case_id": case_id,
-        "status": status,
-        "return_code": proc.returncode,
-        "cmd": cmd,
-        "output_dir": str(output_dir),
-        "started_at": start.isoformat(),
-        "finished_at": end.isoformat(),
-        "stdout_tail": proc.stdout[-500:] if proc.stdout else "",
-        "stderr_tail": proc.stderr[-500:] if proc.stderr else "",
-    }
+    try:
+        proc = subprocess.run(
+            cmd,
+            shell=True,
+            executable="/bin/bash",
+            capture_output=True,
+            text=True,
+            timeout=timeout_s if timeout_s > 0 else None,
+        )
+        end = datetime.now(timezone.utc)
+        status = "success" if proc.returncode == 0 else "failed"
+        return {
+            "case_id": case_id,
+            "status": status,
+            "return_code": proc.returncode,
+            "cmd": cmd,
+            "output_dir": str(output_dir),
+            "started_at": start.isoformat(),
+            "finished_at": end.isoformat(),
+            "stdout_tail": proc.stdout[-500:] if proc.stdout else "",
+            "stderr_tail": proc.stderr[-500:] if proc.stderr else "",
+        }
+    except subprocess.TimeoutExpired:
+        end = datetime.now(timezone.utc)
+        return {
+            "case_id": case_id,
+            "status": "failed",
+            "return_code": -1,
+            "reason": f"timeout_{timeout_s}s",
+            "cmd": cmd,
+            "output_dir": str(output_dir),
+            "started_at": start.isoformat(),
+            "finished_at": end.isoformat(),
+            "stdout_tail": "",
+            "stderr_tail": "",
+        }
 
 
 def main() -> None:
@@ -94,7 +149,7 @@ def main() -> None:
     items = []
     success = failed = skipped = 0
     for row in rows:
-        result = run_one(row, args.dry_run)
+        result = run_one(row, args.dry_run, args.timeout_s)
         items.append(result)
         if result["status"] == "success":
             success += 1
