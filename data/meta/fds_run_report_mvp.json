@@ -1,6 +1,6 @@
 {
   "manifest": "data/meta/fds_manifest_mvp.csv",
-  "generated_at_utc": "2026-02-23T07:48:30.241150+00:00",
+  "generated_at_utc": "2026-02-23T08:06:40.230297+00:00",
   "dry_run": true,
   "summary": {
     "total": 10,
@@ -13,70 +13,70 @@
       "case_id": "case_000001",
       "status": "skipped",
       "reason": "dry_run",
-      "cmd": "fds data/fds_inputs/case_000001.fds > data/fds_outputs/case_000001/run.log 2>&1",
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && /home/zyren/FDS/FDS6/bin/fds data/fds_inputs/case_000001.fds > data/fds_outputs/case_000001/run.log 2>&1",
       "output_dir": "data/fds_outputs/case_000001"
     },
     {
       "case_id": "case_000002",
       "status": "skipped",
       "reason": "dry_run",
-      "cmd": "fds data/fds_inputs/case_000002.fds > data/fds_outputs/case_000002/run.log 2>&1",
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && /home/zyren/FDS/FDS6/bin/fds data/fds_inputs/case_000002.fds > data/fds_outputs/case_000002/run.log 2>&1",
       "output_dir": "data/fds_outputs/case_000002"
     },
     {
       "case_id": "case_000003",
       "status": "skipped",
       "reason": "dry_run",
-      "cmd": "fds data/fds_inputs/case_000003.fds > data/fds_outputs/case_000003/run.log 2>&1",
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && /home/zyren/FDS/FDS6/bin/fds data/fds_inputs/case_000003.fds > data/fds_outputs/case_000003/run.log 2>&1",
       "output_dir": "data/fds_outputs/case_000003"
     },
     {
       "case_id": "case_000004",
       "status": "skipped",
       "reason": "dry_run",
-      "cmd": "fds data/fds_inputs/case_000004.fds > data/fds_outputs/case_000004/run.log 2>&1",
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && /home/zyren/FDS/FDS6/bin/fds data/fds_inputs/case_000004.fds > data/fds_outputs/case_000004/run.log 2>&1",
       "output_dir": "data/fds_outputs/case_000004"
     },
     {
       "case_id": "case_000005",
       "status": "skipped",
       "reason": "dry_run",
-      "cmd": "fds data/fds_inputs/case_000005.fds > data/fds_outputs/case_000005/run.log 2>&1",
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && /home/zyren/FDS/FDS6/bin/fds data/fds_inputs/case_000005.fds > data/fds_outputs/case_000005/run.log 2>&1",
       "output_dir": "data/fds_outputs/case_000005"
     },
     {
       "case_id": "case_000006",
       "status": "skipped",
       "reason": "dry_run",
-      "cmd": "fds data/fds_inputs/case_000006.fds > data/fds_outputs/case_000006/run.log 2>&1",
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && /home/zyren/FDS/FDS6/bin/fds data/fds_inputs/case_000006.fds > data/fds_outputs/case_000006/run.log 2>&1",
       "output_dir": "data/fds_outputs/case_000006"
     },
     {
       "case_id": "case_000007",
       "status": "skipped",
       "reason": "dry_run",
-      "cmd": "fds data/fds_inputs/case_000007.fds > data/fds_outputs/case_000007/run.log 2>&1",
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && /home/zyren/FDS/FDS6/bin/fds data/fds_inputs/case_000007.fds > data/fds_outputs/case_000007/run.log 2>&1",
       "output_dir": "data/fds_outputs/case_000007"
     },
     {
       "case_id": "case_000008",
       "status": "skipped",
       "reason": "dry_run",
-      "cmd": "fds data/fds_inputs/case_000008.fds > data/fds_outputs/case_000008/run.log 2>&1",
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && /home/zyren/FDS/FDS6/bin/fds data/fds_inputs/case_000008.fds > data/fds_outputs/case_000008/run.log 2>&1",
       "output_dir": "data/fds_outputs/case_000008"
     },
     {
       "case_id": "case_000009",
       "status": "skipped",
       "reason": "dry_run",
-      "cmd": "fds data/fds_inputs/case_000009.fds > data/fds_outputs/case_000009/run.log 2>&1",
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && /home/zyren/FDS/FDS6/bin/fds data/fds_inputs/case_000009.fds > data/fds_outputs/case_000009/run.log 2>&1",
       "output_dir": "data/fds_outputs/case_000009"
     },
     {
       "case_id": "case_000010",
       "status": "skipped",
       "reason": "dry_run",
-      "cmd": "fds data/fds_inputs/case_000010.fds > data/fds_outputs/case_000010/run.log 2>&1",
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && /home/zyren/FDS/FDS6/bin/fds data/fds_inputs/case_000010.fds > data/fds_outputs/case_000010/run.log 2>&1",
       "output_dir": "data/fds_outputs/case_000010"
     }
   ]
