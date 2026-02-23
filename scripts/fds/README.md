@@ -3,6 +3,7 @@
 ## 脚本
 - `scripts/fds/run_manifest_mvp.py`
 - `scripts/fds/generate_fds_inputs_mvp.py`
+- `scripts/fds/summarize_runs_mvp.py`
 
 ## 作用
 读取 `fds_manifest`，顺序执行任务（或 dry-run），并输出运行报告 JSON。
@@ -42,3 +43,10 @@ python3 scripts/fds/run_manifest_mvp.py \
 
 ## 说明
 - 若当前 shell 未加载 `fds` 到 PATH，脚本会尝试回退到 `~/FDS/FDS6/bin/fds`。
+
+## 日志摘要
+```bash
+python3 scripts/fds/summarize_runs_mvp.py \
+  --outputs-dir data/fds_outputs \
+  --output data/meta/fds_run_summary_mvp.csv
+```

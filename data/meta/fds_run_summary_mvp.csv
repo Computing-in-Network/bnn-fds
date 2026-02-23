@@ -1,0 +1,11 @@
+case_id,status,last_time_step,last_sim_time_s,error_hint
+case_000001,success,30,1.86639,
+case_000002,missing_log,,,run.log not found
+case_000003,missing_log,,,run.log not found
+case_000004,missing_log,,,run.log not found
+case_000005,missing_log,,,run.log not found
+case_000006,missing_log,,,run.log not found
+case_000007,missing_log,,,run.log not found
+case_000008,missing_log,,,run.log not found
+case_000009,missing_log,,,run.log not found
+case_000010,missing_log,,,run.log not found
