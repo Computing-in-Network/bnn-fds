@@ -1,0 +1,19 @@
+{
+  "model": "linear_regression_student",
+  "feature_order": [
+    "fire_x",
+    "fire_y",
+    "hrr_peak_kw",
+    "vent_open_ratio",
+    "duration_s"
+  ],
+  "target": "teacher_temp_peak",
+  "weights": {
+    "fire_x": 0.17999999999999425,
+    "fire_y": -0.10999999999999496,
+    "hrr_peak_kw": 0.028000000000000805,
+    "vent_open_ratio": 9.000000000000018,
+    "duration_s": 0.011999999999996132
+  },
+  "bias": 20.00000000000001
+}
