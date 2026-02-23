@@ -2,6 +2,7 @@
 
 ## 脚本
 - `scripts/distill/train_distill_mvp.py`
+- `scripts/distill/train_distill_mlp_mvp.py`
 
 ## 作用
 执行 Teacher-Student 蒸馏 MVP：
@@ -21,3 +22,18 @@ python3 scripts/distill/train_distill_mvp.py \
 - `distill/artifacts/mvp_distill/student_preds_mvp.csv`
 - `distill/artifacts/mvp_distill/student_model_mvp.json`
 - `distill/artifacts/mvp_distill/metrics_mvp.json`
+
+## MLP 蒸馏示例
+```bash
+python3 scripts/distill/train_distill_mlp_mvp.py \
+  --cases data/meta/cases_mvp.csv \
+  --output-dir distill/artifacts/mvp_distill_mlp \
+  --epochs 200 \
+  --hidden-dim 32
+```
+
+输出：
+- `distill/artifacts/mvp_distill_mlp/student_mlp_model.pt`
+- `distill/artifacts/mvp_distill_mlp/metrics_train.json`
+- `distill/artifacts/mvp_distill_mlp/metrics_val.json`
+- `distill/artifacts/mvp_distill_mlp/train_history.csv`
