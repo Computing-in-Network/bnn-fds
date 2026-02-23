@@ -115,10 +115,24 @@ def main() -> None:
     xva = torch.tensor(x_n[va_idx], dtype=torch.float32)
     yva = torch.tensor((y_va - y_mean) / y_std, dtype=torch.float32).unsqueeze(1)
 
+    # 线性基线
+    xtr_np = x_n[tr_idx]
+    xva_np = x_n[va_idx]
+    ytr_n_np = ((y_tr - y_mean) / y_std).astype(np.float32)
+    yva_n_np = ((y_va - y_mean) / y_std).astype(np.float32)
+    xtr_aug = np.concatenate([xtr_np, np.ones((xtr_np.shape[0], 1), dtype=np.float32)], axis=1)
+    theta, _, _, _ = np.linalg.lstsq(xtr_aug, ytr_n_np, rcond=None)
+    w_lin = theta[:-1]
+    b_lin = float(theta[-1])
+    ptr_lin = (xtr_np @ w_lin + b_lin) * y_std + y_mean
+    pva_lin = (xva_np @ w_lin + b_lin) * y_std + y_mean
+    mtr_lin = metrics(y_tr, ptr_lin)
+    mva_lin = metrics(y_va, pva_lin)
+
+    # MLP 模型
     model = StudentMLP(in_dim=len(FEATURES), hidden_dim=16)
     opt = torch.optim.Adam(model.parameters(), lr=args.lr)
     loss_fn = nn.MSELoss()
-
     history = []
     for ep in range(1, args.epochs + 1):
         model.train()
@@ -127,7 +141,6 @@ def main() -> None:
         loss = loss_fn(pred, ytr)
         loss.backward()
         opt.step()
-
         model.eval()
         with torch.no_grad():
             v = loss_fn(model(xva), yva).item()
@@ -137,16 +150,31 @@ def main() -> None:
     with torch.no_grad():
         ptr_n = model(xtr).squeeze(1).cpu().numpy()
         pva_n = model(xva).squeeze(1).cpu().numpy()
-    ptr = ptr_n * y_std + y_mean
-    pva = pva_n * y_std + y_mean
+    ptr_mlp = ptr_n * y_std + y_mean
+    pva_mlp = pva_n * y_std + y_mean
+    mtr_mlp = metrics(y_tr, ptr_mlp)
+    mva_mlp = metrics(y_va, pva_mlp)
 
-    mtr = metrics(y_tr, ptr)
-    mva = metrics(y_va, pva)
+    # 选择验证集更优模型
+    use_linear = mva_lin["mae"] <= mva_mlp["mae"]
+    if use_linear:
+        mtr, mva = mtr_lin, mva_lin
+        model_payload = {
+            "model_type": "linear",
+            "linear_weights": w_lin.tolist(),
+            "linear_bias": b_lin,
+        }
+    else:
+        mtr, mva = mtr_mlp, mva_mlp
+        model_payload = {
+            "model_type": "mlp",
+            "state_dict": model.state_dict(),
+        }
 
     # 保存产物
     torch.save(
         {
-            "state_dict": model.state_dict(),
+            **model_payload,
             "x_mean": x_mean.tolist(),
             "x_std": x_std.tolist(),
             "y_mean": y_mean,
@@ -154,6 +182,8 @@ def main() -> None:
             "features": FEATURES,
             "target": "last_sim_time_s",
             "num_samples": len(x_list),
+            "val_metrics_linear": mva_lin,
+            "val_metrics_mlp": mva_mlp,
         },
         args.output_dir / "student_real_mvp.pt",
     )
@@ -170,7 +200,11 @@ def main() -> None:
             writer.writerow(r)
 
     print(f"真实蒸馏训练完成: {args.output_dir}")
-    print(f"samples={len(x_list)} train={mtr} val={mva}")
+    print(
+        f"samples={len(x_list)} "
+        f"selected={'linear' if use_linear else 'mlp'} "
+        f"train={mtr} val={mva}"
+    )
 
 
 if __name__ == "__main__":

@@ -66,3 +66,5 @@ python3 scripts/distill/train_distill_real_mvp.py \
   --labels data/meta/fds_labels_real_mvp.csv \
   --output-dir distill/artifacts/real_mvp
 ```
+
+真实标签小样本场景下，脚本会同时评估 `linear` 与 `mlp`，自动选择验证集更优模型写入 `student_real_mvp.pt`。
