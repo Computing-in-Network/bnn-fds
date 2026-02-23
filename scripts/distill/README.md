@@ -3,6 +3,8 @@
 ## 脚本
 - `scripts/distill/train_distill_mvp.py`
 - `scripts/distill/train_distill_mlp_mvp.py`
+- `scripts/distill/infer_distill_mlp_mvp.py`
+- `scripts/distill/benchmark_infer_mvp.py`
 
 ## 作用
 执行 Teacher-Student 蒸馏 MVP：
@@ -37,3 +39,17 @@ python3 scripts/distill/train_distill_mlp_mvp.py \
 - `distill/artifacts/mvp_distill_mlp/metrics_train.json`
 - `distill/artifacts/mvp_distill_mlp/metrics_val.json`
 - `distill/artifacts/mvp_distill_mlp/train_history.csv`
+
+## 推理与基准
+```bash
+python3 scripts/distill/infer_distill_mlp_mvp.py \
+  --cases data/meta/cases_mvp.csv \
+  --model distill/artifacts/mvp_distill_mlp/student_mlp_model.pt \
+  --output distill/artifacts/mvp_distill_mlp/infer_preds.csv
+
+python3 scripts/distill/benchmark_infer_mvp.py \
+  --cases data/meta/cases_mvp.csv \
+  --model distill/artifacts/mvp_distill_mlp/student_mlp_model.pt \
+  --num-repeats 50 \
+  --output distill/artifacts/mvp_distill_mlp/infer_benchmark.json
+```

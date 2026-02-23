@@ -1,0 +1,8 @@
+{
+  "num_cases": 100,
+  "num_repeats": 80,
+  "p50_latency_ms": 0.06563449278473854,
+  "p95_latency_ms": 0.07796910358592866,
+  "avg_latency_ms": 0.06852598744444549,
+  "meets_1s_goal": true
+}
