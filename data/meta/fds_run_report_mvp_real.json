@@ -1,0 +1,25 @@
+{
+  "manifest": "data/meta/fds_manifest_mvp.csv",
+  "generated_at_utc": "2026-02-23T07:51:53.315734+00:00",
+  "dry_run": false,
+  "summary": {
+    "total": 1,
+    "success": 0,
+    "failed": 1,
+    "skipped": 0
+  },
+  "items": [
+    {
+      "case_id": "case_000001",
+      "status": "failed",
+      "return_code": -1,
+      "reason": "timeout_5s",
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && /home/zyren/FDS/FDS6/bin/fds data/fds_inputs/case_000001.fds > data/fds_outputs/case_000001/run.log 2>&1",
+      "output_dir": "data/fds_outputs/case_000001",
+      "started_at": "2026-02-23T07:51:48.309840+00:00",
+      "finished_at": "2026-02-23T07:51:53.315676+00:00",
+      "stdout_tail": "",
+      "stderr_tail": ""
+    }
+  ]
+}
