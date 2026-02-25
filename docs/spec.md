@@ -10,6 +10,23 @@
   - 支持快速参数扫描、在线决策或实时可视化。
   - 为后续控制、优化、反演任务提供可微近似模型。
 
+### 1.1 当前业务目标（优先级）
+- 业务 A：气体浓度预测
+  - 核心指标：`CO`、`CO2`、`O2` 的关键点时序与峰值/末值。
+  - 首版标签来源：`*_devc.csv` 中 `CO_VOL`、`CO2_VOL`、`O2_VOL`。
+  - 首版输出字段：
+    - `gas_co_max_ppm`
+    - `gas_co2_max_vol_frac`
+    - `gas_o2_min_vol_frac`
+- 业务 B：火情预测
+  - 核心指标：关键点温度时序与峰值。
+  - 首版标签来源：`*_devc.csv` 中 `TEMP_FIRE`、`TEMP_CENTER`。
+  - 首版输出字段：
+    - `fire_temp_fire_peak_c`
+    - `fire_temp_center_peak_c`
+
+说明：当前仓库首版真实标签已从 `run.log` 扩展到 `*_devc.csv`，后续以业务 A/B 标签为主，不再以运行时长标签作为核心业务目标。
+
 ## 2. 思路是否合理
 结论：合理，但建议采用“分阶段蒸馏/替代建模”路线，而不是一次到位。
 
@@ -128,6 +145,17 @@
 - 准确率 `Accuracy >= 85%`（测试集）。
 - 时延 `P95 <= 1.0s`（单工况推理）。
 - 推理速度相对 FDS 加速 >= 20x（建议目标，若与 P95 冲突以 P95 为硬门槛）。
+
+### 5.1 两类业务的首版验收口径
+- 气体浓度预测（业务 A）：
+  - 回归指标：`MAE/NMAE/Accuracy`（对 `gas_co_max_ppm`、`gas_co2_max_vol_frac`、`gas_o2_min_vol_frac` 逐项统计并平均）。
+  - 报警指标（可选）：`gas_co_alarm_50ppm` 的准确率/F1。
+- 火情预测（业务 B）：
+  - 回归指标：`MAE/NMAE/Accuracy`（对 `fire_temp_fire_peak_c`、`fire_temp_center_peak_c` 逐项统计并平均）。
+  - 报警指标（可选）：`fire_high_temp_alarm` 的准确率/F1。
+- 统一门槛：
+  - `Accuracy >= 85%`（测试集，按上述字段聚合）。
+  - `P95 <= 1.0s`（单工况推理，标准硬件）。
 
 ## 6. 里程碑
 - M1（1~2 周）：完成参数空间定义、自动化数据生成脚本、首批数据集。

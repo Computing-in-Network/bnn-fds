@@ -26,6 +26,8 @@
 3. 文档更新：
 - `scripts/distill/README.md`
 - `docs/issues/ISSUE-0016-fds-param-expansion-and-50000-scale-plan.md`
+- `scripts/fds/README.md`
+- `docs/spec.md`
 
 ## 今日测试数据与结果
 1. FDS 5 组烟雾测试：
@@ -58,3 +60,10 @@
 ## 后续计划
 - 进入 M2：扩展输入参数到 10~12 维（空气/风向等）。
 - 进入 M3/M4：按分批与并行方案推进 50000 组规模化执行与蒸馏评估。
+
+## 补充：业务方向落地
+- 已将业务目标明确为两类：
+  - 气体浓度预测（CO/CO2/O2）
+  - 火情预测（关键点温度峰值与时序）
+- 已落地 `*_devc.csv` 到业务标签的提取脚手架（`scripts/fds/extract_business_labels_mvp.py`）。
+- 下一步将业务标签接入训练/评估口径，替代以运行时长为主的过渡标签。

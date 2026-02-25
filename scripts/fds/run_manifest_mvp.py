@@ -113,10 +113,22 @@ def run_one(row: dict, dry_run: bool, timeout_s: int) -> dict:
         )
         end = datetime.now(timezone.utc)
         status = "success" if proc.returncode == 0 else "failed"
+        reason = ""
+        run_log = output_dir / "run.log"
+        if status == "success":
+            if not run_log.exists():
+                status = "failed"
+                reason = "missing_run_log"
+            else:
+                log_text = run_log.read_text(encoding="utf-8", errors="ignore")
+                if "STOP: FDS completed successfully" not in log_text:
+                    status = "failed"
+                    reason = "missing_success_marker"
         return {
             "case_id": case_id,
             "status": status,
             "return_code": proc.returncode,
+            "reason": reason,
             "cmd": cmd,
             "output_dir": str(output_dir),
             "started_at": start.isoformat(),

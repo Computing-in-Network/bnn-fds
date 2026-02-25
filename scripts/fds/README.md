@@ -6,6 +6,7 @@
 - `scripts/fds/summarize_runs_mvp.py`
 - `scripts/fds/extract_real_labels_mvp.py`
 - `scripts/fds/build_real_labels_dataset_mvp.py`
+- `scripts/fds/extract_business_labels_mvp.py`
 
 ## 作用
 读取 `fds_manifest`，顺序执行任务（或 dry-run），并输出运行报告 JSON。
@@ -59,6 +60,51 @@ python3 scripts/fds/extract_real_labels_mvp.py \
   --outputs-dir data/fds_outputs \
   --output data/meta/fds_labels_real_mvp.csv
 ```
+
+## 业务标签提取（气体浓度 + 火情）
+```bash
+python3 scripts/fds/extract_business_labels_mvp.py \
+  --outputs-dir data/fds_outputs \
+  --output data/meta/fds_business_labels_mvp.csv
+```
+
+输出字段示例：
+- 气体浓度类：`gas_co_max_ppm`、`gas_co2_max_vol_frac`、`gas_o2_min_vol_frac`
+- 火情类：`fire_temp_fire_peak_c`、`fire_temp_center_peak_c`
+
+## 业务链路最小验收（建议先跑 1 组）
+```bash
+# 1) 生成 1 组输入
+python3 scripts/fds/generate_fds_inputs_mvp.py \
+  --cases data/meta/cases_mvp.csv \
+  --output-dir data/fds_inputs \
+  --max-cases 1
+
+# 2) 生成 manifest（确保输出落在 case 目录）
+python3 scripts/data/build_fds_manifest.py \
+  --cases data/meta/cases_mvp.csv \
+  --output data/meta/fds_manifest_mvp.csv \
+  --fds-input-root data/fds_inputs \
+  --fds-output-root data/fds_outputs
+
+# 3) 运行 FDS
+python3 scripts/fds/run_manifest_mvp.py \
+  --manifest data/meta/fds_manifest_mvp.csv \
+  --output-report data/meta/fds_run_report_mvp.json \
+  --max-cases 1 \
+  --timeout-s 600
+
+# 4) 提取业务标签
+python3 scripts/fds/extract_business_labels_mvp.py \
+  --outputs-dir data/fds_outputs \
+  --output data/meta/fds_business_labels_mvp.csv
+```
+
+验收要点：
+- 每个 case 目录中存在 `*_devc.csv`。
+- `data/meta/fds_business_labels_mvp.csv` 至少包含：
+  - `gas_co_max_ppm`、`gas_co2_max_vol_frac`、`gas_o2_min_vol_frac`
+  - `fire_temp_fire_peak_c`、`fire_temp_center_peak_c`
 
 ## 标签质量门控
 ```bash

@@ -73,13 +73,26 @@ def build_fds_text(case: dict) -> str:
     vz1 = 0.0
     vz2 = 2.0
 
+    dev_x = 5.0
+    dev_y = 5.0
+    dev_z = 1.6
+    fire_dev_x = max(0.5, min(9.5, fire_x))
+    fire_dev_y = max(0.5, min(9.5, fire_y))
+    fire_dev_z = 1.6
+
     txt = f"""&HEAD CHID='{case_id}', TITLE='MVP auto-generated case' /
 &TIME T_END={duration_s:.1f} /
+&DUMP DT_DEVC=1.0 /
 &MESH IJK=40,40,12, XB=0.0,10.0, 0.0,10.0, 0.0,3.0 /
 &REAC FUEL='PROPANE' /
 &SURF ID='BURNER', HRRPUA={hrr_peak_kw:.2f}, COLOR='RED' /
 &OBST XB={x1:.3f},{x2:.3f}, {y1:.3f},{y2:.3f}, {z1:.3f},{z2:.3f}, SURF_ID='BURNER' /
 &VENT XB={vx1:.3f},{vx2:.3f}, {vy1:.3f},{vy2:.3f}, {vz1:.3f},{vz2:.3f}, SURF_ID='OPEN' /
+&DEVC ID='TEMP_CENTER', QUANTITY='TEMPERATURE', XYZ={dev_x:.3f},{dev_y:.3f},{dev_z:.3f} /
+&DEVC ID='TEMP_FIRE', QUANTITY='TEMPERATURE', XYZ={fire_dev_x:.3f},{fire_dev_y:.3f},{fire_dev_z:.3f} /
+&DEVC ID='O2_VOL', QUANTITY='VOLUME FRACTION', SPEC_ID='OXYGEN', XYZ={dev_x:.3f},{dev_y:.3f},{dev_z:.3f} /
+&DEVC ID='CO2_VOL', QUANTITY='VOLUME FRACTION', SPEC_ID='CARBON DIOXIDE', XYZ={dev_x:.3f},{dev_y:.3f},{dev_z:.3f} /
+&DEVC ID='CO_VOL', QUANTITY='VOLUME FRACTION', SPEC_ID='CARBON MONOXIDE', XYZ={dev_x:.3f},{dev_y:.3f},{dev_z:.3f} /
 &TAIL /
 """
     return txt

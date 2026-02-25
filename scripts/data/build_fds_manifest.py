@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import csv
+import shlex
 from pathlib import Path
 
 
@@ -61,9 +62,12 @@ def build_manifest_rows(
     rows = []
     for case in cases:
         case_id = case["case_id"]
-        fds_input_path = (fds_input_root / f"{case_id}.fds").as_posix()
-        output_dir = (fds_output_root / case_id).as_posix()
-        run_cmd = f"fds {fds_input_path} > {output_dir}/run.log 2>&1"
+        fds_input_path = (fds_input_root / f"{case_id}.fds").resolve().as_posix()
+        output_dir = (fds_output_root / case_id).resolve().as_posix()
+        out_q = shlex.quote(output_dir)
+        in_q = shlex.quote(fds_input_path)
+        # 在 case 专属目录执行 FDS，确保 _devc.csv 等输出与 run.log 同目录便于后处理
+        run_cmd = f"mkdir -p {out_q} && cd {out_q} && fds {in_q} > run.log 2>&1"
         rows.append(
             {
                 "case_id": case_id,
