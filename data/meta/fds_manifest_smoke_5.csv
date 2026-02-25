@@ -1,0 +1,6 @@
+case_id,fds_input_path,output_dir,run_cmd
+case_000001,data/fds_inputs_smoke/case_000001.fds,data/fds_outputs_smoke/case_000001,fds data/fds_inputs_smoke/case_000001.fds > data/fds_outputs_smoke/case_000001/run.log 2>&1
+case_000002,data/fds_inputs_smoke/case_000002.fds,data/fds_outputs_smoke/case_000002,fds data/fds_inputs_smoke/case_000002.fds > data/fds_outputs_smoke/case_000002/run.log 2>&1
+case_000003,data/fds_inputs_smoke/case_000003.fds,data/fds_outputs_smoke/case_000003,fds data/fds_inputs_smoke/case_000003.fds > data/fds_outputs_smoke/case_000003/run.log 2>&1
+case_000004,data/fds_inputs_smoke/case_000004.fds,data/fds_outputs_smoke/case_000004,fds data/fds_inputs_smoke/case_000004.fds > data/fds_outputs_smoke/case_000004/run.log 2>&1
+case_000005,data/fds_inputs_smoke/case_000005.fds,data/fds_outputs_smoke/case_000005,fds data/fds_inputs_smoke/case_000005.fds > data/fds_outputs_smoke/case_000005/run.log 2>&1

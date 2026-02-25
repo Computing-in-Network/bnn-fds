@@ -1,0 +1,77 @@
+
+ Starting FDS ...
+
+ MPI Process      0 started on SCIserver
+
+ Reading FDS input file ...
+
+
+ Fire Dynamics Simulator
+
+ Current Date     : February 25, 2026  17:13:37
+ Revision         : FDS-6.10.1-0-g12efa16-release
+ Revision Date    : Wed Apr 2 17:38:58 2025 -0400
+ Compiler         : Intel(R) Fortran Compiler for applications running on Intel(R) 64, Version 2025.1.0 Build 20250317
+ Compilation Date : Apr 04, 2025 08:51:41
+
+ Number of MPI Processes:  1
+
+ MPI version: 3.1
+ MPI library version: Intel(R) MPI Library 2021.14 for Linux* OS
+
+ Hypre library version: v2.32.0
+ Sundials library version: v6.7.0
+
+ Job TITLE        : MVP auto-generated case
+ Job ID string    : case_000005
+
+ Time Step:       1, Simulation Time:   0.23046 s
+ Time Step:       2, Simulation Time:   0.46091 s
+ Time Step:       3, Simulation Time:   0.58051 s
+ Time Step:       4, Simulation Time:   0.71206 s
+ Time Step:       5, Simulation Time:   0.83759 s
+ Time Step:       6, Simulation Time:   0.93233 s
+ Time Step:       7, Simulation Time:   1.00038 s
+ Time Step:       8, Simulation Time:   1.06843 s
+ Time Step:       9, Simulation Time:   1.12206 s
+ Time Step:      10, Simulation Time:   1.17569 s
+ Time Step:      20, Simulation Time:   1.54541 s
+ Time Step:      30, Simulation Time:   1.81519 s
+ Time Step:      40, Simulation Time:   2.04919 s
+ Time Step:      50, Simulation Time:   2.33055 s
+ Time Step:      60, Simulation Time:   2.63589 s
+ Time Step:      70, Simulation Time:   2.94123 s
+ Time Step:      80, Simulation Time:   3.24657 s
+ Time Step:      90, Simulation Time:   3.55191 s
+ Time Step:     100, Simulation Time:   3.85725 s
+ Time Step:     200, Simulation Time:   7.14269 s
+ Time Step:     300, Simulation Time:   9.91475 s
+ Time Step:     400, Simulation Time:  12.99766 s
+ Time Step:     500, Simulation Time:  15.97908 s
+ Time Step:     600, Simulation Time:  19.19046 s
+ Time Step:     700, Simulation Time:  22.36800 s
+ Time Step:     800, Simulation Time:  25.44838 s
+ Time Step:     900, Simulation Time:  28.45091 s
+ Time Step:    1000, Simulation Time:  31.26284 s
+ Time Step:    1100, Simulation Time:  33.92746 s
+ Time Step:    1200, Simulation Time:  36.98171 s
+ Time Step:    1300, Simulation Time:  40.02591 s
+ Time Step:    1400, Simulation Time:  42.94569 s
+ Time Step:    1500, Simulation Time:  45.96526 s
+ Time Step:    1600, Simulation Time:  48.81686 s
+ Time Step:    1700, Simulation Time:  51.59972 s
+ Time Step:    1800, Simulation Time:  54.46605 s
+ Time Step:    1900, Simulation Time:  57.33578 s
+ Time Step:    2000, Simulation Time:  60.27361 s
+ Time Step:    2100, Simulation Time:  63.18170 s
+ Time Step:    2200, Simulation Time:  66.11126 s
+ Time Step:    2300, Simulation Time:  69.12236 s
+ Time Step:    2400, Simulation Time:  72.13666 s
+ Time Step:    2500, Simulation Time:  75.09064 s
+ Time Step:    2600, Simulation Time:  78.03084 s
+ Time Step:    2700, Simulation Time:  81.05824 s
+ Time Step:    2800, Simulation Time:  84.07757 s
+ Time Step:    2900, Simulation Time:  86.99154 s
+ Time Step:    2914, Simulation Time:  87.40000 s
+
+STOP: FDS completed successfully (CHID: case_000005)

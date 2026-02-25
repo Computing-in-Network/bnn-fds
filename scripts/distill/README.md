@@ -6,6 +6,7 @@
 - `scripts/distill/infer_distill_mlp_mvp.py`
 - `scripts/distill/benchmark_infer_mvp.py`
 - `scripts/distill/train_distill_real_mvp.py`
+- `scripts/distill/benchmark_real_mvp.py`
 
 ## 作用
 执行 Teacher-Student 蒸馏 MVP：
@@ -64,7 +65,20 @@ python3 scripts/fds/extract_real_labels_mvp.py \
 python3 scripts/distill/train_distill_real_mvp.py \
   --cases data/meta/cases_mvp.csv \
   --labels data/meta/fds_labels_real_mvp.csv \
-  --output-dir distill/artifacts/real_mvp
+  --output-dir distill/artifacts/real_mvp \
+  --hidden-dim-1 64 \
+  --hidden-dim-2 64 \
+  --select-model mlp
 ```
 
-真实标签小样本场景下，脚本会同时评估 `linear` 与 `mlp`，自动选择验证集更优模型写入 `student_real_mvp.pt`。
+建议将 `mlp(64x64)` 作为默认主模型，`linear` 作为对照基线。  
+如需自动按验证误差选优，可用：`--select-model auto`。
+
+真实标签模型推理基准：
+```bash
+python3 scripts/distill/benchmark_real_mvp.py \
+  --cases data/meta/cases_mvp.csv \
+  --model distill/artifacts/real_mvp/student_real_mvp.pt \
+  --num-repeats 5000 \
+  --output distill/artifacts/real_mvp/infer_benchmark.json
+```

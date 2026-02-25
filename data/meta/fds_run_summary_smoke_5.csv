@@ -1,0 +1,6 @@
+case_id,status,last_time_step,last_sim_time_s,error_hint
+case_000001,success,2306,74.20000,
+case_000002,success,754,31.80000,
+case_000003,success,1411,69.00000,
+case_000004,success,1168,30.40000,
+case_000005,success,2914,87.40000,

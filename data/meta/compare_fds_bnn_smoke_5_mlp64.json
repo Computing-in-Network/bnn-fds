@@ -1,0 +1,24 @@
+{
+  "num_cases": 5,
+  "fds_wall_clock_s": {
+    "avg_s": 101.42871640000001,
+    "p95_s": 165.6072764,
+    "total_s": 507.14358200000004
+  },
+  "bnn_train_wall_clock_s": 3.45,
+  "bnn_infer_latency_ms": {
+    "model_type": "mlp",
+    "num_cases": 5,
+    "num_repeats": 5000,
+    "warmup": 200,
+    "p50_latency_ms_per_batch": 0.06998300023042248,
+    "p95_latency_ms_per_batch": 0.08016250039872831,
+    "avg_latency_ms_per_batch": 0.07155886580367224,
+    "avg_latency_ms_per_case": 0.014311773160734448,
+    "meets_1s_goal": true
+  },
+  "speedup": {
+    "avg_fds_vs_bnn_batch": 1417416.490058384,
+    "avg_fds_vs_bnn_case": 7087082.4502919195
+  }
+}

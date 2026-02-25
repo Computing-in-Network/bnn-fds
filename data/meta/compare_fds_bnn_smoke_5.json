@@ -1,0 +1,38 @@
+{
+  "input": {
+    "num_cases": 5,
+    "fds_report": "data/meta/fds_run_report_smoke_5.json",
+    "bnn_model": "distill/artifacts/real_smoke_5/student_real_mvp.pt",
+    "model_type": "linear"
+  },
+  "fds_wall_clock_s": {
+    "count": 5,
+    "total_s": 507.14358200000004,
+    "avg_s": 101.42871640000001,
+    "p50_s": 82.402763,
+    "p95_s": 165.6072764,
+    "min_s": 46.810819,
+    "max_s": 173.617946
+  },
+  "fds_simulation_time_s": {
+    "count": 5,
+    "avg_s": 58.56,
+    "p50_s": 69.0,
+    "p95_s": 84.76,
+    "min_s": 30.4,
+    "max_s": 87.4
+  },
+  "bnn_infer_latency_ms": {
+    "num_repeats": 5000,
+    "batch_size": 5,
+    "avg_ms_per_batch": 0.005108280391505104,
+    "p50_ms_per_batch": 0.005087999852548819,
+    "p95_ms_per_batch": 0.005149999242348713,
+    "avg_ms_per_case": 0.0010216560783010207
+  },
+  "bnn_train_wall_clock_s": 6.67,
+  "speedup": {
+    "vs_fds_avg_wall__batch_level": 19855745.69647205,
+    "vs_fds_avg_wall__per_case": 99278728.48236024
+  }
+}

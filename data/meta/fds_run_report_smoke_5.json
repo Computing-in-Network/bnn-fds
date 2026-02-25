@@ -1,0 +1,68 @@
+{
+  "manifest": "data/meta/fds_manifest_smoke_5.csv",
+  "generated_at_utc": "2026-02-25T09:16:30.676303+00:00",
+  "dry_run": false,
+  "summary": {
+    "total": 5,
+    "success": 5,
+    "failed": 0,
+    "skipped": 0
+  },
+  "items": [
+    {
+      "case_id": "case_000001",
+      "status": "success",
+      "return_code": 0,
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && fds data/fds_inputs_smoke/case_000001.fds > data/fds_outputs_smoke/case_000001/run.log 2>&1",
+      "output_dir": "data/fds_outputs_smoke/case_000001",
+      "started_at": "2026-02-25T09:08:03.531750+00:00",
+      "finished_at": "2026-02-25T09:10:17.096348+00:00",
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "case_id": "case_000002",
+      "status": "success",
+      "return_code": 0,
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && fds data/fds_inputs_smoke/case_000002.fds > data/fds_outputs_smoke/case_000002/run.log 2>&1",
+      "output_dir": "data/fds_outputs_smoke/case_000002",
+      "started_at": "2026-02-25T09:10:17.096587+00:00",
+      "finished_at": "2026-02-25T09:11:03.907406+00:00",
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "case_id": "case_000003",
+      "status": "success",
+      "return_code": 0,
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && fds data/fds_inputs_smoke/case_000003.fds > data/fds_outputs_smoke/case_000003/run.log 2>&1",
+      "output_dir": "data/fds_outputs_smoke/case_000003",
+      "started_at": "2026-02-25T09:11:03.907654+00:00",
+      "finished_at": "2026-02-25T09:12:26.310417+00:00",
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "case_id": "case_000004",
+      "status": "success",
+      "return_code": 0,
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && fds data/fds_inputs_smoke/case_000004.fds > data/fds_outputs_smoke/case_000004/run.log 2>&1",
+      "output_dir": "data/fds_outputs_smoke/case_000004",
+      "started_at": "2026-02-25T09:12:26.310656+00:00",
+      "finished_at": "2026-02-25T09:13:37.058112+00:00",
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "case_id": "case_000005",
+      "status": "success",
+      "return_code": 0,
+      "cmd": "source /home/zyren/FDS/FDS6/bin/FDS6VARS.sh && source /home/zyren/FDS/FDS6/bin/SMV6VARS.sh && fds data/fds_inputs_smoke/case_000005.fds > data/fds_outputs_smoke/case_000005/run.log 2>&1",
+      "output_dir": "data/fds_outputs_smoke/case_000005",
+      "started_at": "2026-02-25T09:13:37.058329+00:00",
+      "finished_at": "2026-02-25T09:16:30.676275+00:00",
+      "stdout_tail": "",
+      "stderr_tail": ""
+    }
+  ]
+}

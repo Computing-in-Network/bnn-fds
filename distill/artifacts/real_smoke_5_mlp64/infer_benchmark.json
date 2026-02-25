@@ -1,0 +1,11 @@
+{
+  "model_type": "mlp",
+  "num_cases": 5,
+  "num_repeats": 5000,
+  "warmup": 200,
+  "p50_latency_ms_per_batch": 0.06998300023042248,
+  "p95_latency_ms_per_batch": 0.08016250039872831,
+  "avg_latency_ms_per_batch": 0.07155886580367224,
+  "avg_latency_ms_per_case": 0.014311773160734448,
+  "meets_1s_goal": true
+}

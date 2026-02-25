@@ -15,14 +15,14 @@ FEATURES = ["fire_x", "fire_y", "hrr_peak_kw", "vent_open_ratio", "duration_s"]
 
 
 class StudentMLP(nn.Module):
-    def __init__(self, in_dim: int, hidden_dim: int = 16):
+    def __init__(self, in_dim: int, hidden_dim_1: int = 64, hidden_dim_2: int = 64):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Linear(in_dim, hidden_dim),
+            nn.Linear(in_dim, hidden_dim_1),
             nn.ReLU(),
-            nn.Linear(hidden_dim, hidden_dim),
+            nn.Linear(hidden_dim_1, hidden_dim_2),
             nn.ReLU(),
-            nn.Linear(hidden_dim, 1),
+            nn.Linear(hidden_dim_2, 1),
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -42,6 +42,15 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--epochs", type=int, default=800)
     p.add_argument("--lr", type=float, default=1e-2)
     p.add_argument("--val-ratio", type=float, default=0.2)
+    p.add_argument("--hidden-dim-1", type=int, default=64)
+    p.add_argument("--hidden-dim-2", type=int, default=64)
+    p.add_argument(
+        "--select-model",
+        type=str,
+        default="mlp",
+        choices=["mlp", "linear", "auto"],
+        help="主模型选择策略：mlp(默认)、linear、auto(按验证 MAE 选优)",
+    )
     return p.parse_args()
 
 
@@ -130,7 +139,11 @@ def main() -> None:
     mva_lin = metrics(y_va, pva_lin)
 
     # MLP 模型
-    model = StudentMLP(in_dim=len(FEATURES), hidden_dim=16)
+    model = StudentMLP(
+        in_dim=len(FEATURES),
+        hidden_dim_1=args.hidden_dim_1,
+        hidden_dim_2=args.hidden_dim_2,
+    )
     opt = torch.optim.Adam(model.parameters(), lr=args.lr)
     loss_fn = nn.MSELoss()
     history = []
@@ -155,8 +168,14 @@ def main() -> None:
     mtr_mlp = metrics(y_tr, ptr_mlp)
     mva_mlp = metrics(y_va, pva_mlp)
 
-    # 选择验证集更优模型
-    use_linear = mva_lin["mae"] <= mva_mlp["mae"]
+    # 选择主模型：默认优先 MLP，保留 linear 作为可切换基线
+    if args.select_model == "linear":
+        use_linear = True
+    elif args.select_model == "mlp":
+        use_linear = False
+    else:
+        use_linear = mva_lin["mae"] <= mva_mlp["mae"]
+
     if use_linear:
         mtr, mva = mtr_lin, mva_lin
         model_payload = {
@@ -168,6 +187,8 @@ def main() -> None:
         mtr, mva = mtr_mlp, mva_mlp
         model_payload = {
             "model_type": "mlp",
+            "hidden_dim_1": args.hidden_dim_1,
+            "hidden_dim_2": args.hidden_dim_2,
             "state_dict": model.state_dict(),
         }
 
@@ -184,6 +205,9 @@ def main() -> None:
             "num_samples": len(x_list),
             "val_metrics_linear": mva_lin,
             "val_metrics_mlp": mva_mlp,
+            "train_metrics_linear": mtr_lin,
+            "train_metrics_mlp": mtr_mlp,
+            "selection_policy": args.select_model,
         },
         args.output_dir / "student_real_mvp.pt",
     )
@@ -202,7 +226,8 @@ def main() -> None:
     print(f"真实蒸馏训练完成: {args.output_dir}")
     print(
         f"samples={len(x_list)} "
-        f"selected={'linear' if use_linear else 'mlp'} "
+        f"selected={'linear' if use_linear else 'mlp'} policy={args.select_model} "
+        f"hidden=({args.hidden_dim_1},{args.hidden_dim_2}) "
         f"train={mtr} val={mva}"
     )
 
